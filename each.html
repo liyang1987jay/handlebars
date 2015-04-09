@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>each-基本循环使用方法</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="js/handlebars.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			h1,
+			table {
+				margin: 0 auto;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>each-基本循环使用方法</h1>
+		<!--基础html框架-->
+		<table>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+
+			<tbody id="tableList">
+			</tbody>
+		</table>
+	</body>
+	<!--Handlebars.js模版-->
+	<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+	<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+	<script id="table-template" type="text/x-handlebars-template">
+		{{#each this}}
+		<tr>
+			<td>{{name}}</td>
+			<td>{{sex}}</td>
+			<td>{{age}}</td>
+		</tr>
+		{{/each}}
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			var data = [{
+						"name": "张三",
+						"sex": "0",
+						"age": "13"
+					}, {
+						"name": "李四",
+						"sex": "1",
+						"age": "15"
+					}, {
+						"name": "李亚光",
+						"sex": "0",
+						"age": "16"
+					}]
+				//注册一个Handlebars模版，通过id找到某一个模版，获取模版的html框架
+			var resource = $("#table-template").html();
+			var myTemplate = Handlebars.compile(resource);
+			//将json对象用刚刚注册的Handlebars模版封装，得到最终的html，插入到基础table中。
+			$('#tableList').html(myTemplate(data));
+		});
+	</script>
+
+</html>
